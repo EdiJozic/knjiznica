@@ -4,9 +4,9 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> Quasar aplikacija Knjižnica </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-toolbar-title class="text-h4 text-bold text-center">Quasar aplikacija Knjižnica</q-toolbar-title>
+  
+        <div>Quasar v{{ $q.version }}</div> 
       </q-toolbar>
     </q-header>
 
@@ -77,6 +77,12 @@ const linksList = [
     icon: 'public',
     link: 'https://github.com/EdiJozic/knjiznica',
   },
+  {
+    title: 'Veleučilište u Rijeci',
+    caption: 'Link na VeleRi',
+    icon: 'open_in_new',
+    link: 'https://www.veleri.hr/hr',
+  }
 ]
 
 const leftDrawerOpen = ref(false)
