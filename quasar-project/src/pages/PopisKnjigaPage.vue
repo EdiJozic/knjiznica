@@ -1,124 +1,95 @@
 <template>
   <div class="q-pa-md">
     <q-table
-      title="Treats"
+      title="Knjige"
       :rows="rows"
       :columns="columns"
       row-key="name"
-    />
+    >
+      <!-- 🔹 Custom prikaz za stupac "Slika" -->
+      <template v-slot:body-cell-Slika="props">
+        <q-td :props="props">
+          <img
+            :src="props.row.slika"
+            :alt="props.row.name"
+            style="width: 80px; border-radius: 8px;"
+          />
+        </q-td>
+      </template>
+
+      <!-- 🔹 Custom prikaz za stupac "Status" (opcionalno, ako želiš boje) -->
+      <template v-slot:body-cell-Status="props">
+        <q-td :props="props">
+          <q-badge
+            :color="props.row.status === 'Slobodno' ? 'green' : 'red'"
+            align="middle"
+          >
+            {{ props.row.status }}
+          </q-badge>
+        </q-td>
+      </template>
+    </q-table>
   </div>
 </template>
-<script>
+
+<script setup>
 const columns = [
-  {
-    name: 'name',
-    required: true,
-    label: 'Dessert (100g serving)',
-    align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
-  },
-  { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
-  { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
-  { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
-  { name: 'protein', label: 'Protein (g)', field: 'protein' },
-  { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
-  { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
- 
+  { name: 'name', label: 'Knjiga', field: 'name', align: 'left', sortable: true },
+  { name: 'ID', label: 'ID', field: 'id', align: 'center' },
+  { name: 'Autor', label: 'Autor', field: 'autor' },
+  { name: 'Opis', label: 'Opis', field: 'opis' },
+  { name: 'Slika', label: 'Slika', field: 'slika' },
+  { name: 'Status', label: 'Status', field: 'status' }
 ]
 
 const rows = [
   {
-    name: 'Frozen Yogurt',
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    sodium: 87,
-    calcium: '14%',
-    iron: '1%'
+    name: 'To Kill a Mockingbird',
+    id: 1,
+    autor: 'Harper Lee',
+    opis: 'Roman o nepravdi, rasizmu i odrastanju u američkom Jugu 1930-ih.',
+    slika: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
+    status: 'Slobodno',
   },
   {
-    name: 'Ice cream sandwich',
-    calories: 237,
-    fat: 9.0,
-    carbs: 37,
-    protein: 4.3,
-    sodium: 129,
-    calcium: '8%',
-    iron: '1%'
+    name: '1984',
+    id: 2,
+    autor: 'George Orwell',
+    opis: 'Distopijska priča o totalitarnom društvu u kojem je svaka misao nadzirana.',
+    slika: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
+    status: 'Zauzeto',
   },
   {
-    name: 'Eclair',
-    calories: 262,
-    fat: 16.0,
-    carbs: 23,
-    protein: 6.0,
-    sodium: 337,
-    calcium: '6%',
-    iron: '7%'
+    name: 'The Great Gatsby',
+    id: 3,
+    autor: 'F. Scott Fitzgerald',
+    opis: 'Priča o bogatstvu, ljubavi i iluzijama u doba američkih dvadesetih.',
+    slika: 'https://covers.openlibrary.org/b/id/7222161-L.jpg',
+    status: 'Slobodno',
   },
   {
-    name: 'Cupcake',
-    calories: 305,
-    fat: 3.7,
-    carbs: 67,
-    protein: 4.3,
-    sodium: 413,
-    calcium: '3%',
-    iron: '8%'
+    name: 'The Catcher in the Rye',
+    id: 4,
+    autor: 'J.D. Salinger',
+    opis: 'Mladi Holden Caulfield luta New Yorkom tražeći smisao i iskrenost.',
+    slika: 'https://covers.openlibrary.org/b/id/8231856-L.jpg',
+    status: 'Zauzeto',
   },
   {
-    name: 'Gingerbread',
-    calories: 356,
-    fat: 16.0,
-    carbs: 49,
-    protein: 3.9,
-    sodium: 327,
-    calcium: '7%',
-    iron: '16%'
+    name: 'Pride and Prejudice',
+    id: 5,
+    autor: 'Jane Austen',
+    opis: 'Klasik o ljubavi, ponosu i predrasudama u Engleskoj 19. stoljeća.',
+    slika: 'https://covers.openlibrary.org/b/id/8091016-L.jpg',
+    status: 'Slobodno',
   },
   {
-    name: 'Jelly bean',
-    calories: 375,
-    fat: 0.0,
-    carbs: 94,
-    protein: 0.0,
-    sodium: 50,
-    calcium: '0%',
-    iron: '0%'
-  },
-  {
-    name: 'Lollipop',
-    calories: 392,
-    fat: 0.2,
-    carbs: 98,
-    protein: 0,
-    sodium: 38,
-    calcium: '0%',
-    iron: '2%'
-  },
-  {
-    name: 'Honeycomb',
-    calories: 408,
-    fat: 3.2,
-    carbs: 87,
-    protein: 6.5,
-    sodium: 562,
-    calcium: '0%',
-    iron: '45%'
-  },
-
-  
-]
-
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
+    name: 'The Hobbit',
+    id: 6,
+    autor: 'J.R.R. Tolkien',
+    opis: 'Avantura Bilba Bagginsa kroz svijet pun zmajeva, patuljaka i čarobnjaka.',
+    slika: 'https://covers.openlibrary.org/b/id/8101354-L.jpg',
+    status: 'Zauzeto',
   }
-}
+]
 </script>
