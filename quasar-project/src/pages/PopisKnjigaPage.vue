@@ -1,95 +1,70 @@
 <template>
-  <div class="q-pa-md">
+  <q-page class="q-pa-md">
     <q-table
-      title="Knjige"
-      :rows="rows"
+      title="Popis knjiga"
+      :rows="knjige"
       :columns="columns"
-      row-key="name"
+      row-key="id"
     >
-      <!-- 🔹 Custom prikaz za stupac "Slika" -->
       <template v-slot:body-cell-Slika="props">
         <q-td :props="props">
-          <img
-            :src="props.row.slika"
-            :alt="props.row.name"
-            style="width: 80px; border-radius: 8px;"
-          />
+          <img :src="props.row.slika" :alt="props.row.naslov" style="width: 80px; border-radius: 8px;" />
         </q-td>
       </template>
 
-      <!-- 🔹 Custom prikaz za stupac "Status" (opcionalno, ako želiš boje) -->
       <template v-slot:body-cell-Status="props">
         <q-td :props="props">
-          <q-badge
-            :color="props.row.status === 'Slobodno' ? 'green' : 'red'"
-            align="middle"
-          >
+          <q-badge :color="props.row.status === 'Slobodno' ? 'green' : 'red'" align="middle">
             {{ props.row.status }}
           </q-badge>
         </q-td>
       </template>
+
+      <template v-slot:body-cell-akcija="props">
+        <q-td :props="props">
+          <q-btn color="negative" label="Obriši" size="sm" @click="obrisiKnjigu(props.row.id)" />
+        </q-td>
+      </template>
     </q-table>
-  </div>
+  </q-page>
 </template>
 
-<script setup>
-const columns = [
-  { name: 'name', label: 'Knjiga', field: 'name', align: 'left', sortable: true },
-  { name: 'ID', label: 'ID', field: 'id', align: 'center' },
-  { name: 'Autor', label: 'Autor', field: 'autor' },
-  { name: 'Opis', label: 'Opis', field: 'opis' },
-  { name: 'Slika', label: 'Slika', field: 'slika' },
-  { name: 'Status', label: 'Status', field: 'status' }
-]
-
-const rows = [
-  {
-    name: 'To Kill a Mockingbird',
-    id: 1,
-    autor: 'Harper Lee',
-    opis: 'Roman o nepravdi, rasizmu i odrastanju u američkom Jugu 1930-ih.',
-    slika: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
-    status: 'Slobodno',
+<script>
+export default {
+  data() {
+    return {
+      columns: [
+        { name: 'id', label: 'ID', field: 'id', align: 'center' },
+        { name: 'naslov', label: 'Naslov', field: 'naslov', align: 'left', sortable: true },
+        { name: 'autor', label: 'Autor', field: 'autor' },
+        { name: 'opis', label: 'Opis', field: 'opis' },
+        { name: 'slika', label: 'Slika', field: 'slika' },
+        { name: 'status', label: 'Status', field: 'status' },
+        { name: 'akcija', label: 'Akcija', field: 'akcija' }
+      ],
+      knjige: []
+    }
   },
-  {
-    name: '1984',
-    id: 2,
-    autor: 'George Orwell',
-    opis: 'Distopijska priča o totalitarnom društvu u kojem je svaka misao nadzirana.',
-    slika: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
-    status: 'Zauzeto',
+  mounted() {
+    // Pocetne knjige
+    const pocetne = [
+      { id: 1, naslov: 'To Kill a Mockingbird', autor: 'Harper Lee', opis: 'Roman o nepravdi...', slika: 'https://covers.openlibrary.org/b/id/8228691-L.jpg', status: 'Slobodno' },
+      { id: 2, naslov: '1984', autor: 'George Orwell', opis: 'Distopijska priča...', slika: 'https://covers.openlibrary.org/b/id/7222246-L.jpg', status: 'Zauzeto' },
+      { id: 3, naslov: 'The Great Gatsby', autor: 'F. Scott Fitzgerald', opis: 'Priča o bogatstvu...', slika: 'https://covers.openlibrary.org/b/id/7222161-L.jpg', status: 'Slobodno' },
+      { id: 4, naslov: 'The Catcher in the Rye', autor: 'J.D. Salinger', opis: 'Mladi Holden...', slika: 'https://covers.openlibrary.org/b/id/8231856-L.jpg', status: 'Zauzeto' },
+      { id: 5, naslov: 'Pride and Prejudice', autor: 'Jane Austen', opis: 'Klasik o ljubavi...', slika: 'https://covers.openlibrary.org/b/id/8091016-L.jpg', status: 'Slobodno' },
+      { id: 6, naslov: 'The Hobbit', autor: 'J.R.R. Tolkien', opis: 'Avantura Bilba...', slika: 'https://covers.openlibrary.org/b/id/8101354-L.jpg', status: 'Zauzeto' }
+    ]
+    const spremljene = JSON.parse(localStorage.getItem('knjige') || '[]')
+    this.knjige = pocetne.concat(spremljene)
   },
-  {
-    name: 'The Great Gatsby',
-    id: 3,
-    autor: 'F. Scott Fitzgerald',
-    opis: 'Priča o bogatstvu, ljubavi i iluzijama u doba američkih dvadesetih.',
-    slika: 'https://covers.openlibrary.org/b/id/7222161-L.jpg',
-    status: 'Slobodno',
-  },
-  {
-    name: 'The Catcher in the Rye',
-    id: 4,
-    autor: 'J.D. Salinger',
-    opis: 'Mladi Holden Caulfield luta New Yorkom tražeći smisao i iskrenost.',
-    slika: 'https://covers.openlibrary.org/b/id/8231856-L.jpg',
-    status: 'Zauzeto',
-  },
-  {
-    name: 'Pride and Prejudice',
-    id: 5,
-    autor: 'Jane Austen',
-    opis: 'Klasik o ljubavi, ponosu i predrasudama u Engleskoj 19. stoljeća.',
-    slika: 'https://covers.openlibrary.org/b/id/8091016-L.jpg',
-    status: 'Slobodno',
-  },
-  {
-    name: 'The Hobbit',
-    id: 6,
-    autor: 'J.R.R. Tolkien',
-    opis: 'Avantura Bilba Bagginsa kroz svijet pun zmajeva, patuljaka i čarobnjaka.',
-    slika: 'https://covers.openlibrary.org/b/id/8101354-L.jpg',
-    status: 'Zauzeto',
+  methods: {
+    obrisiKnjigu(id) {
+      this.knjige = this.knjige.filter(k => k.id !== id)
+      const spremljene = this.knjige.filter(k => k.id > 6)
+      localStorage.setItem('knjige', JSON.stringify(spremljene))
+      this.$q.notify({ type: 'negative', message: 'Knjiga obrisana!' })
+    }
   }
-]
+}
 </script>

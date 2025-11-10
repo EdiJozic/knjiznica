@@ -9,7 +9,12 @@ const routes = [
       { path: 'pretrazivanje', component: () => import('pages/PretrazivanjePage.vue') },
       { path: 'lokacija', component: () => import('pages/LokacijaPage.vue') },
       { path: 'login', component: () => import('pages/LoginPage.vue') },
-      { path: 'registracija', component: () => import('pages/RegistracijaPage.vue') }
+      { path: 'registracija', component: () => import('pages/RegistracijaPage.vue') },
+      { path: 'testpage', component: () => import('pages/TestPage.vue') },
+      { path: 'test1page', component: () => import('pages/Test1Page.vue') },
+      {path: 'unos-knjiga',component: () => import('pages/UnosKnjiga.vue')}
+
+
     ]
   },
 

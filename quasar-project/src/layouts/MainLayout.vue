@@ -1,13 +1,13 @@
 <template>
-  
+
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title class="text-h4 text-bold text-center">Quasar aplikacija Knjižnica</q-toolbar-title>
-  
-        <div>Quasar v{{ $q.version }}</div> 
+
+        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -39,6 +39,14 @@ const linksList = [
   },
 
   {
+    title: 'Unos knjiga',
+    caption: '',
+    icon: 'home',
+    link: '/#/unos-knjiga',  // Lokalna ruta
+    target: 'self',  // Otvara u istom tabu
+  },
+
+  {
     title: 'Popis novih knjiga',
     caption: '',
     icon: 'menu',
@@ -55,35 +63,36 @@ const linksList = [
   {
     title: 'Pretraživanje',
     caption: '',
-    icon: 'menu',
+    icon: 'search',
     link: '/#/pretrazivanje',  // Lokalna ruta
     target: 'self',  // Otvara u istom tabu
   },
   {
     title: 'Lokacija',
     caption: '',
-    icon: 'menu',
+    icon: 'map',
     link: '/#/lokacija',  // Lokalna ruta
     target: 'self',  // Otvara u istom tabu
   },
   {
     title: 'Login',
     caption: '',
-    icon: 'menu',
+    icon: 'login',
     link: '/#/login',  // Lokalna ruta
     target: 'self',  // Otvara u istom tabu
   },
   {
     title: 'Registracija',
     caption: '',
-    icon: 'menu',
+    icon: 'logout',
     link: '/#/registracija',  // Lokalna ruta
     target: 'self',  // Otvara u istom tabu
-  }
+  },
 
 
-  
-  
+
+
+
 ]
 
 
